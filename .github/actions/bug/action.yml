@@ -36,6 +36,7 @@ runs:
       shell: bash
       run: |
         VAR1=$RANDOM
+        perl -i -e 'print unless /^MY_VAR1=/' $GITHUB_ENV
         echo "MY_VAR1=$(echo $VAR1)" >> $GITHUB_ENV
         echo $VAR1
         echo 'create finished'
