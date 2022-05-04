@@ -1,0 +1,51 @@
+name: "Example"
+
+description: "Example"
+
+branding:
+  icon: "download"
+  color: "green"
+
+inputs:
+  repository:
+    description: 'Repository name with owner. For example, actions/checkout'
+    default: ${{ github.repository }}
+  ref:
+    description: >
+      The branch, tag or SHA to checkout. When checking out the repository that
+      triggered a workflow, this defaults to the reference or SHA for that
+      event.  Otherwise, uses the default branch.
+    required: false
+    default: ${{ github.ref }}
+  token:
+    description: >
+      Personal access token (PAT) used to fetch the repository. The PAT is configured
+      with the local git config, which enables your scripts to run authenticated git
+      commands. The post-job step removes the PAT.
+      We recommend using a service account with the least permissions necessary.
+      Also when generating a new PAT, select the least scopes necessary.
+      [Learn more about creating and using encrypted secrets](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets)
+    required: false
+    default: ${{ github.token }}
+
+runs:
+  using: "composite"
+  steps:
+    # Run python (environment variables has to be set separately https://github.com/actions/runner/issues/665)
+    - name: Run handle reference on linux/mac
+      shell: bash
+      run: |
+        VAR1=$RANDOM
+        echo "MY_VAR1=$(echo $VAR1)" >> $GITHUB_ENV
+        echo $VAR1
+        echo 'create finished'
+  
+    # Show ref information
+    - name: Show ref information
+      run: |
+          echo 'random1'
+          echo $MY_VAR1
+          echo 'env-random1'
+          echo "${{ env.MY_VAR1 }}"
+          echo 'read finished'
+      shell: bash
