@@ -31,4 +31,4 @@ jobs:
 
       # Run local action
       - name: Run local action
-        uses: ./github/actions/bug
+        uses: ./.github/actions/bug
