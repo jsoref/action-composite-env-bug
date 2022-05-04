@@ -30,5 +30,13 @@ jobs:
         uses: actions/checkout@v3
 
       # Run local action
-      - name: Run local action
+      - name: Run local action for the first time
+        uses: ./.github/actions/bug
+
+      # Run local action
+      - name: Run local action for the second time
+        uses: ./.github/actions/bug
+
+      # Run local action
+      - name: Run local action for the third time
         uses: ./.github/actions/bug
